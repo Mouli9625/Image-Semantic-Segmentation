@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Semantic Segmentation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+
+    .container {
+      margin: 50px auto;
+      padding: 20px;
+      background-color: rgb(0 0 0 / 18%);
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      max-height: auto;
+    }
+
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    form {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    .flash {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .flash li {
+      background-color: #99faff;
+      color: #000;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 5px;
+    }
+
+    .caption {
+      margin-top: 20px;
+      text-align: center;
+      padding-left: 150px;
+      border-radius: 100px;
+    }
+
+    .caption-1 {
+      margin-top: 20px;
+      text-align: center;
+      padding-right: 150px;
+    }
+
+    .uploaded-image {
+      max-width: 100%;
+      display: block;
+      margin: 20px auto;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .images {
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Semantic Segmentation</h1>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class="flash">
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    <form method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <input type="file" name="file" id="file">
+        <label for="file" class="btn">Choose File</label>
+      </div>
+      <button type="submit" class="btn">Upload</button>
+    </form>
+    <div class="images">
+      {% if uploaded_image %}
+      <div class="caption">
+        <h2>Uploaded Image</h2>
+        <img src="{{ url_for('static', filename=uploaded_image) }}" alt="Uploaded Image" class="uploaded-image">
+      </div>
+      {% endif %}
+      {% if segmented_image %}
+      <div class="caption-1">
+        <h2>Segmented Image</h2>
+        <img src="{{ url_for('static', filename=segmented_image) }}" alt="Segmented Image" class="uploaded-image">
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</body>
+
+</html>
